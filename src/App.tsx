@@ -6,6 +6,7 @@ import "./App.css";
 const letters = ["A", "Z"];
 
 function App() {
+  const [mute, setMute] = useState(false);
   const [data, setData] = useState<{ input: string; guess: string }[]>([]);
 
   function random() {
@@ -20,8 +21,21 @@ function App() {
   return (
     <div className="App">
       <h1>A ou Z ?</h1>
-      <Keyboard letters={letters} onButtonPressed={buttonPressed} />
+      <Keyboard letters={letters} onButtonPressed={buttonPressed} mute={mute} />
       <Display letters={letters} data={data} />
+      <div>
+        <input
+          type="checkbox"
+          id="mute"
+          checked={mute}
+          onChange={(e) => {
+            setMute(e.target.checked);
+          }}
+        />
+        <label htmlFor="mute" style={{ padding: "2px" }}>
+          Muet
+        </label>
+      </div>
     </div>
   );
 }
