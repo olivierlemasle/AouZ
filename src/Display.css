@@ -1,0 +1,54 @@
+.Display {
+  position: relative;
+}
+
+.Display .overlay {
+  position: absolute;
+  background: linear-gradient(90deg, #e7e6d2, transparent);
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 95%;
+}
+
+.Display .grid {
+  overflow-x: scroll;
+  scrollbar-width: none;
+
+  display: grid;
+  grid-auto-columns: 3em;
+  grid-template-rows: 3em 3em;
+  grid-auto-rows: 3em;
+  grid-auto-flow: column;
+  gap: 2px;
+  justify-content: safe end;
+  padding: 3px;
+}
+.Display .grid::-webkit-scrollbar {
+  display: none;
+}
+
+.Display .cell {
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #999;
+  border-radius: 5px;
+  background-color: #ccc8c6;
+}
+.Display .cell.odd {
+  background-color: #e4e4af;
+}
+.Display .cell.last {
+  border: 2px solid #333;
+}
+
+.Display .head {
+  grid-column: span 2;
+  user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2em;
+}
