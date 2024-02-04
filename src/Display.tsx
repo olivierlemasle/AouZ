@@ -2,10 +2,11 @@ import { Fragment, useEffect, useRef } from "react";
 import "./Display.css";
 
 interface DisplayProps {
+  letters: string[];
   data: { input: string; guess: string }[];
 }
 
-function Display({ data }: DisplayProps) {
+function Display({ letters, data }: DisplayProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   function scrollBefore() {
@@ -26,24 +27,29 @@ function Display({ data }: DisplayProps) {
 
   useEffect(scrollToEnd, [data]);
 
+  function letterClass(letter: string) {
+    const idx = letters.indexOf(letter);
+    return idx === -1 ? "unknown" : `value-${idx}`;
+  }
+
   return (
     <div className="Display">
       <div className="overlay" onClick={scrollBefore} />
       <div className="grid" ref={ref}>
         {data.map((e, i) => {
-          let classes = "cell";
-          classes += i % 2 === 0 ? " even" : " odd";
+          let classes = "cell ";
           if (i === data.length - 1) {
-            classes += " last";
+            classes += "last ";
           }
+          classes += e.input === e.guess ? "ok " : "ko ";
           return (
             <Fragment key={i}>
-              <div className={classes}>{e.input}</div>
-              <div className={classes}>{e.guess}</div>
+              <div className={classes + letterClass(e.input)}>{e.input}</div>
+              <div className={classes + letterClass(e.guess)}>{e.guess}</div>
             </Fragment>
           );
         })}
-        <div className="head">🙂</div>
+        <div className="head">👤</div>
         <div className="head">🤖</div>
       </div>
     </div>

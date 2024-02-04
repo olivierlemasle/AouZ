@@ -35,13 +35,21 @@
   justify-content: center;
   border: 1px solid #999;
   border-radius: 5px;
-  background-color: #ccc8c6;
 }
-.Display .cell.odd {
-  background-color: #e4e4af;
+.Display .cell.value-0 {
+  background-color: #e2e2db;
+}
+.Display .cell.value-1 {
+  background-color: #c4c3c0;
 }
 .Display .cell.last {
   border: 2px solid #333;
+}
+.Display .cell.ok {
+  border: 2px solid rgb(122, 214, 122);
+}
+.Display .cell.ko {
+  border: 2px solid rgb(236, 166, 163);
 }
 
 .Display .head {

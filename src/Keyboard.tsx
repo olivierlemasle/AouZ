@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import Button from "./Button";
 
 interface KeyboardProps {
+  letters: string[];
   onButtonPressed: (key: string) => void;
 }
 
-function Keyboard({ onButtonPressed }: KeyboardProps) {
-  const keys = ["A", "Z"];
+function Keyboard({ letters, onButtonPressed }: KeyboardProps) {
   const [pressedKeys, setPressedKeys] = useState<string[]>([]);
 
   const onkeydown = (evt: KeyboardEvent) => {
@@ -14,7 +14,7 @@ function Keyboard({ onButtonPressed }: KeyboardProps) {
       return;
     }
     const key = evt.key.toUpperCase();
-    if (keys.includes(key)) {
+    if (letters.includes(key)) {
       setPressedKeys([...pressedKeys, key]);
       onButtonPressed(key);
     }
@@ -22,7 +22,7 @@ function Keyboard({ onButtonPressed }: KeyboardProps) {
 
   const onkeyup = (evt: KeyboardEvent) => {
     const key = evt.key.toUpperCase();
-    if (keys.includes(key)) {
+    if (letters.includes(key)) {
       setPressedKeys(pressedKeys.filter((k) => k !== key));
     }
   };
@@ -36,7 +36,7 @@ function Keyboard({ onButtonPressed }: KeyboardProps) {
     };
   });
 
-  const buttons = keys.map((letter) => (
+  const buttons = letters.map((letter) => (
     <Button
       key={letter}
       letter={letter}
