@@ -24,21 +24,26 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: yarn
+          cache: pnpm
 
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v4
 
       - name: Install Node.js dependencies
-        run: yarn
+        run: pnpm i
 
       - name: Build UI
-        run: yarn build
+        run: pnpm build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
