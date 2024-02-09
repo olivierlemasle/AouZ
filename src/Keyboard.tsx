@@ -29,7 +29,7 @@ function Keyboard({ letters, onButtonPressed, mute }: KeyboardProps) {
   async function getOrCreateAudioBuffer(ctx: AudioContext, letter: string) {
     let audioBuffer = audioBuffers.current[letter];
     if (!audioBuffer) {
-      const href = new URL(`./assets/${letter}.ogg`, import.meta.url).href;
+      const href = new URL(`./assets/sounds/${letter}.ogg`, import.meta.url).href;
       console.log(`Fetching "${letter}" sound: ${href}`);
       const response = await fetch(href);
       const arrayBuffer = await response.arrayBuffer();
