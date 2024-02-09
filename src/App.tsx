@@ -7,7 +7,11 @@ const letters = ["A", "Z"];
 
 function App() {
   const [mute, setMute] = useState(false);
-  const [data, setData] = useState<{ input: string; guess: string }[]>([]);
+  const [data, setData] = useState<{ input?: string; guess: string }[]>([
+    {
+      guess: random(),
+    },
+  ]);
 
   function random() {
     const i = Math.floor(Math.random() * letters.length);
@@ -15,7 +19,20 @@ function App() {
   }
 
   function buttonPressed(key: string) {
-    setData([...data, { input: key, guess: random() }]);
+    const last = data[data.length - 1];
+    if (last.input) {
+      console.log(last.input);
+      return;
+    }
+    setData([...data.slice(0, data.length - 1), { ...last, input: key }]);
+    setTimeout(() => {
+      setData((data) => [
+        ...data,
+        {
+          guess: random(),
+        },
+      ]);
+    }, 1000);
   }
 
   return (

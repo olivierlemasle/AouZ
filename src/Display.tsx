@@ -1,9 +1,10 @@
-import { Fragment, useEffect, useRef } from "react";
+import { Fragment, UIEvent, useEffect, useRef } from "react";
 import "./Display.css";
+import Card from "./Card";
 
 interface DisplayProps {
   letters: string[];
-  data: { input: string; guess: string }[];
+  data: { input?: string; guess: string }[];
 }
 
 function Display({ letters, data }: DisplayProps) {
@@ -11,11 +12,13 @@ function Display({ letters, data }: DisplayProps) {
 
   function scrollBefore() {
     if (ref.current) {
-      if (ref.current.scrollLeft > 300) {
-        ref.current.scrollLeft *= 0.8;
-      } else {
-        ref.current.scrollLeft -= 60;
-      }
+      ref.current.scrollLeft -= 0.2 * ref.current.clientWidth;
+    }
+  }
+
+  function scrollAfter() {
+    if (ref.current) {
+      ref.current.scrollLeft += 0.2 * ref.current.clientWidth;
     }
   }
 
@@ -25,30 +28,67 @@ function Display({ letters, data }: DisplayProps) {
     }
   }
 
+  const onkeydown = (evt: KeyboardEvent) => {
+    switch (evt.code) {
+      case "ArrowLeft":
+        scrollBefore();
+        break;
+      case "ArrowRight":
+        scrollAfter();
+        break;
+      default:
+        return;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("keydown", onkeydown, false);
+    return () => {
+      window.removeEventListener("keydown", onkeydown, false);
+    };
+  });
+
   useEffect(scrollToEnd, [data]);
 
-  function letterClass(letter: string) {
-    const idx = letters.indexOf(letter);
-    return idx === -1 ? "unknown" : `value-${idx}`;
-  }
+  const onscroll = (evt: UIEvent<HTMLDivElement>) => {
+    const el = evt.currentTarget;
+    const isScrollable = el.scrollWidth > el.clientWidth;
+    if (!isScrollable) {
+      el.classList.remove("is-left-overflowing", "is-right-overflowing");
+      return;
+    }
+    const isScrolledToRight =
+      el.scrollWidth < el.clientWidth + el.scrollLeft + 50;
+    const isScrolledToLeft = isScrolledToRight ? false : el.scrollLeft === 0;
+    el.classList.toggle("is-left-overflowing", !isScrolledToLeft);
+    el.classList.toggle("is-right-overflowing", !isScrolledToRight);
+  };
 
   return (
     <div className="Display">
-      <div className="overlay" onClick={scrollBefore} />
-      <div className="grid" ref={ref}>
-        {data.map((e, i) => {
-          let classes = "cell ";
-          if (i === data.length - 1) {
-            classes += "last ";
-          }
-          classes += e.input === e.guess ? "ok " : "ko ";
-          return (
-            <Fragment key={i}>
-              <div className={classes + letterClass(e.input)}>{e.input}</div>
-              <div className={classes + letterClass(e.guess)}>{e.guess}</div>
-            </Fragment>
-          );
-        })}
+      <div className="grid-wrapper">
+        <div className="grid" ref={ref} onScroll={onscroll}>
+          {data.map((e, i) => {
+            const inputMatch = e.input ? e.input === e.guess : null;
+            return (
+              <Fragment key={i}>
+                <Card
+                  letters={letters}
+                  value={e.input}
+                  inputMatch={inputMatch}
+                />
+                <Card
+                  letters={letters}
+                  value={e.guess}
+                  inputMatch={inputMatch}
+                  hidden={e.input === undefined}
+                />
+              </Fragment>
+            );
+          })}
+        </div>
+      </div>
+      <div className="header">
         <div className="head">👤</div>
         <div className="head">🤖</div>
       </div>

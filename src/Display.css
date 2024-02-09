@@ -1,19 +1,26 @@
 .Display {
-  position: relative;
+  display: flex;
+  flex-direction: row;
 }
 
-.Display .overlay {
-  position: absolute;
-  background: linear-gradient(90deg, #e7e6d2, transparent);
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 95%;
+.Display .grid-wrapper {
+  flex-grow: 1;
+  overflow: hidden;
+  position: relative;
 }
 
 .Display .grid {
   overflow-x: scroll;
   scrollbar-width: none;
+  scroll-behavior: smooth;
+
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black var(--left-mask-size),
+    black calc(100% - var(--right-mask-size)),
+    transparent
+  );
 
   display: grid;
   grid-auto-columns: 3em;
@@ -22,41 +29,33 @@
   grid-auto-flow: column;
   gap: 2px;
   justify-content: safe end;
-  padding: 3px;
+  --left-mask-size: 0px;
+  --right-mask-size: 0px;
 }
 .Display .grid::-webkit-scrollbar {
   display: none;
 }
+.Display .grid.is-left-overflowing {
+  --left-mask-size: 50px;
+}
+.Display .grid.is-right-overflowing {
+  --right-mask-size: 50px;
+}
 
-.Display .cell {
-  user-select: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #999;
-  border-radius: 5px;
-}
-.Display .cell.value-0 {
-  background-color: #e2e2db;
-}
-.Display .cell.value-1 {
-  background-color: #c4c3c0;
-}
-.Display .cell.last {
-  border: 2px solid #333;
-}
-.Display .cell.ok {
-  border: 2px solid rgb(122, 214, 122);
-}
-.Display .cell.ko {
-  border: 2px solid rgb(236, 166, 163);
+.header {
+  display: grid;
+  grid-auto-columns: 3em;
+  grid-template-rows: 3em 3em;
+  grid-auto-rows: 3em;
+  grid-auto-flow: column;
+  gap: 2px;
+  justify-content: safe end;
+  margin: 0 0.75em;
 }
 
 .Display .head {
-  grid-column: span 2;
-  user-select: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2em;
+  font-size: 2.5em;
 }
