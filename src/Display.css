@@ -27,7 +27,7 @@
   grid-template-rows: 3em 3em;
   grid-auto-rows: 3em;
   grid-auto-flow: column;
-  gap: 2px;
+  gap: .2em;
   justify-content: safe end;
   --left-mask-size: 0px;
   --right-mask-size: 0px;
@@ -41,6 +41,10 @@
 .Display .grid.is-right-overflowing {
   --right-mask-size: 50px;
 }
+.Display .grid.waiting {
+  padding-right: 3.2em;
+  transition: padding-right .3s;
+}
 
 .header {
   display: grid;
@@ -48,7 +52,7 @@
   grid-template-rows: 3em 3em;
   grid-auto-rows: 3em;
   grid-auto-flow: column;
-  gap: 2px;
+  gap: .2em;
   justify-content: safe end;
   margin: 0 0.75em;
 }

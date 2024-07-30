@@ -5,9 +5,10 @@ import Card from "./Card";
 interface DisplayProps {
   letters: string[];
   data: { input?: string; guess: string }[];
+  waiting: boolean;
 }
 
-function Display({ letters, data }: DisplayProps) {
+function Display({ letters, data, waiting }: DisplayProps) {
   const ref = useRef<HTMLDivElement | null>(null);
 
   function scrollBefore() {
@@ -67,7 +68,11 @@ function Display({ letters, data }: DisplayProps) {
   return (
     <div className="Display">
       <div className="grid-wrapper">
-        <div className="grid" ref={ref} onScroll={onscroll}>
+        <div
+          className={"grid" + (waiting ? " waiting" : "")}
+          ref={ref}
+          onScroll={onscroll}
+        >
           {data.map((e, i) => {
             const inputMatch = e.input ? e.input === e.guess : null;
             return (
