@@ -1,0 +1,27 @@
+.hamburgerButton {
+  z-index: 500;
+  position: fixed;
+  top: 1.5em;
+  right: 1.5em;
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  background-color: unset;
+}
+
+.hamburgerButton path {
+  transition: 0.4s ease-in-out;
+}
+
+.hamburgerButton.open path.top {
+  d: path("M14 0 L50 36 L86 0 L100 14 L64 50 L36 50 L0 14");
+}
+
+.hamburgerButton.open path.middle {
+  d: path("M36 36 h28 v28 h-28");
+  opacity: 0.3;
+}
+
+.hamburgerButton.open path.bottom {
+  d: path("M0 86 L36 50 L64 50 L100 86 L86 100 L50 64 L14 100");
+}

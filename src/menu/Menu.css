@@ -1,0 +1,48 @@
+.menu > .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background-color: #000;
+  z-index: 50;
+
+  width: 0;
+  opacity: 0;
+  transition: opacity 0.4s 0.1s;
+}
+
+.menu.open > .overlay {
+  width: 100%;
+  opacity: 0.2;
+}
+
+.menu > .navbar {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 0;
+  overflow-x: hidden;
+  z-index: 100;
+  transition: 0.5s ease-out;
+  box-shadow: 2px 0 15px 5px rgba(0, 0, 0, 0.4);
+  background-color: #e9e3d8;
+}
+
+.menu.open > .navbar {
+  width: 20em;
+}
+
+.navbar > .inner {
+  width: 20em;
+  height: 100%;
+  padding: 4em 1em 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1em;
+}
+
+.navbar ul {
+  list-style-type: none;
+}
