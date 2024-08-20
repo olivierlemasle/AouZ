@@ -21,7 +21,7 @@ function Card({ letters, value, inputMatch, hidden }: CardProps) {
     <div className={"flip-card" + (hidden ? " showback" : "")}>
       <div className="flip-card-inner">
         <div className={classes}>{value}</div>
-        <div className="flip-card-back"></div>
+        <div className="flip-card-back">?</div>
       </div>
     </div>
   );
