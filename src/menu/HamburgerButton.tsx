@@ -14,14 +14,31 @@ function HamburgerButton({ menuOpen, onClick }: HamburgerButtonProps) {
       }}
     >
       <svg aria-label="Menu" viewBox="0 0 100 100" height="24px" width="24px">
-        <path
-          className="top"
-          d="M0 0 L50 0 L100 0 L100 20 L50 20 L50 20 L0 20"
+        <rect x="0" y="0" width="60" height="20" rx="10" className="top-left" />
+        <rect
+          x="40"
+          y="0"
+          width="60"
+          height="20"
+          rx="10"
+          className="top-right"
         />
-        <path className="middle" d="M0 40 h100 v20 h-100" />
-        <path
-          className="bottom"
-          d="M0 80 L50 80 L50 80 L100 80 L100 100 L50 100 L0 100"
+        <rect x="0" y="40" width="100" height="20" rx="10" className="middle" />
+        <rect
+          x="0"
+          y="80"
+          width="60"
+          height="20"
+          rx="10"
+          className="bottom-left"
+        />
+        <rect
+          x="40"
+          y="80"
+          width="60"
+          height="20"
+          rx="10"
+          className="bottom-right"
         />
       </svg>
     </button>

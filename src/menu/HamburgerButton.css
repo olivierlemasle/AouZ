@@ -9,19 +9,52 @@
   background-color: unset;
 }
 
-.hamburgerButton path {
+.hamburgerButton rect {
   transition: 0.4s ease-in-out;
+  transform-box: fill-box;
 }
 
-.hamburgerButton.open path.top {
-  d: path("M14 0 L50 36 L86 0 L100 14 L64 50 L36 50 L0 14");
+.hamburgerButton rect.middle {
+  transform-origin: 50px 10px;
 }
 
-.hamburgerButton.open path.middle {
-  d: path("M36 36 h28 v28 h-28");
+.hamburgerButton.open rect.middle {
+  transform: scale(0);
   opacity: 0.3;
 }
 
-.hamburgerButton.open path.bottom {
-  d: path("M0 86 L36 50 L64 50 L100 86 L86 100 L50 64 L14 100");
+.hamburgerButton rect.top-left {
+  transform-origin: 10px 10px;
+}
+
+.hamburgerButton.open rect.top-left {
+  transform: rotate(45deg);
+  width: 71px;
+}
+
+.hamburgerButton rect.top-right {
+  transform-origin: 50px 10px;
+}
+
+.hamburgerButton.open rect.top-right {
+  transform: rotate(-45deg) translateX(-11px);
+  width: 71px;
+}
+
+.hamburgerButton rect.bottom-left {
+  transform-origin: 10px 10px;
+}
+
+.hamburgerButton.open rect.bottom-left {
+  transform: rotate(-45deg);
+  width: 71px;
+}
+
+.hamburgerButton rect.bottom-right {
+  transform-origin: 50px 10px;
+}
+
+.hamburgerButton.open rect.bottom-right {
+  transform: rotate(45deg) translateX(-11px);
+  width: 71px;
 }
