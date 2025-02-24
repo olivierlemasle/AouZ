@@ -1,7 +1,7 @@
 from random import choice
 
-from predict.Module1 import Module1
-from predict.Module2 import Module2
+from .Module1 import Module1
+from .Module2 import Module2
 
 debug = False
 

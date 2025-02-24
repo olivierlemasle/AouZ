@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
 import argparse
+import importlib
 import signal
 import sys
-
-import predict
 
 
 def signal_handler(signum, frame):
@@ -35,8 +34,18 @@ def main():
     parser.add_argument(
         "--debug", help="Active les informations de débogage", action="store_true"
     )
+    parser.add_argument(
+        "--module", help="Name of the Python module to use", default="predict1"
+    )
     args = parser.parse_args()
-    predict.debug = args.debug
+    debug = args.debug
+    module = args.module
+
+    if debug:
+        print("Module name: {}".format(module))
+    global predict
+    predict = importlib.import_module(module)
+    predict.debug = debug
 
     print("A ou Z ?")
 
