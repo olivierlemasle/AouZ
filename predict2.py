@@ -35,18 +35,15 @@ def input(new):
         print("Inputs: {}".format(inputs))
 
     if j > 0:
-        n1 = j - i
-        n2 = n - j
+        key = (j - i, n - j)
         eq = 1 if inputs[-1] == inputs[-2] else -1
-        if (n1, n2) not in d:
-            d[(n1, n2)] = eq
+        if key not in d:
+            d[key] = eq
         else:
-            d[(n1, n2)] += eq
+            d[key] += eq
         if debug:
             print(
-                "Après {}, {}".format(
-                    (n1, n2), "même lettre" if eq == 1 else "changement"
-                )
+                "Après {}, {}".format(key, "même lettre" if eq == 1 else "changement")
             )
 
     if n > 0 and inputs[-1] != inputs[-2]:
@@ -64,14 +61,13 @@ def predict():
         # Les premières prédictions sont aléatoires
         return choice(choices)
     elif j > 0:
-        n1 = j - i
-        n2 = n - j
-        if (n1, n2) in d:
-            eq = d[(n1, n2)]
+        key = (j - i, n - j)
+        if key in d:
+            eq = d[key]
             if debug:
                 print(
                     "Pour {}, le plus souvent {} ({})".format(
-                        (n1, n2), "même lettre" if eq >= 0 else "changement", eq
+                        key, "même lettre" if eq >= 0 else "changement", eq
                     )
                 )
             if eq >= 0:
